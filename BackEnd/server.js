@@ -1,13 +1,12 @@
 const express = require('express');
 
 const http = require('http');
-const { Server, Socket } = require('socket.io');
+const { Server } = require('socket.io');
 const cors = require("cors");
+const { userConnected, userDisconnected, myTurnFinished } = require('./utils/usersLogic');
 
 const app = express();
-
 app.use(cors());
-
 
 const server = http.createServer(app);
 
@@ -18,7 +17,14 @@ const io = new Server(server, {
     },
 })
 
-io.sockets.on('connection', () => { console.log('New User') })
+io.sockets.on('connection', (socket) => { 
+    userConnected(io, socket);
+
+    // Listening client data
+    socket.on('myTurnFinished', () => { myTurnFinished(socket) });
+});
+
+io.sockets.on('disconnect', () => { userDisconnected() })
 
 server.listen('9000', () => {
     console.log('Server is running 🔥')

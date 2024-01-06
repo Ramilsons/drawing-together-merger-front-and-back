@@ -1,29 +1,40 @@
-import { useState, useEffect } from 'react';
-import { ReactP5Wrapper } from 'react-p5-wrapper';
+import { useState, useEffect } from "react";
+import { ReactP5Wrapper } from "react-p5-wrapper";
 
-import socket from './socket';
-import sketch from './sketch';
-
+import socket from "./socket";
+import sketch from "./sketch";
 
 function App() {
-  const [isConnected, setIsConnected] = useState(false);
+    const [isInitializePossible, setIsInitializePossible] = useState(false);
+    const [isMyTurn, setIsMyTurn] = useState(false);
 
-  useEffect(() => {
-    socket.connect();
-    socket.emit('mouse', {teste: 1});
+    useEffect(() => {
+        socket.connect();
 
-    setIsConnected(true);
-  }, []);
+        // Listening server data
+        socket.on('userNumberChanged', (data) => {
+            setIsInitializePossible(data.isPossibleInit);
+        });
+    }, []);
 
-  useEffect(() => {
-    console.log(isConnected);
-  }, [isConnected]);
 
-  return (
-    <div className="App bg-black">
-      <ReactP5Wrapper sketch={sketch} />
-    </div>
-  );
+    useEffect(() => {
+        socket.on('yourTurn', () => {
+            setIsMyTurn(true);
+
+            setTimeout(() => {
+                socket.emit('myTurnFinished');
+                setIsMyTurn(false);
+            }, 10000)
+        });
+    }, [socket]);
+
+    return (
+        <div className={`App bg-black ${isInitializePossible ? 'bg-purple-300' :  ''}`}>
+            <p>{ isMyTurn ? 'Sua Vez' : 'Vez do Oponente'}</p>
+            <ReactP5Wrapper sketch={sketch} />
+        </div>
+    );
 }
 
 export default App;
