@@ -21,7 +21,7 @@ io.sockets.on('connection', (socket) => {
     userConnected(io, socket);
 
     // Listening client data
-    socket.on('myTurnFinished', () => { myTurnFinished(socket) });
+    socket.on('myTurnFinished', () => { myTurnFinished(socket, io) });
 });
 
 io.sockets.on('disconnect', () => { userDisconnected() })
