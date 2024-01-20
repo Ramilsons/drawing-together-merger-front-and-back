@@ -50,5 +50,11 @@ function myTurnFinished(socket, io) {
     socket.broadcast.emit('yourTurn'); 
 }
 
+function saveResponseOnHistoric(data, io) {
+    wordsHistoric.push(data);
 
-module.exports = {userConnected, userDisconnected, myTurnFinished};
+    io.emit('newResponseOnHistoric', wordsHistoric);
+}
+
+
+module.exports = {userConnected, userDisconnected, myTurnFinished, saveResponseOnHistoric};

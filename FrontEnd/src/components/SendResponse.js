@@ -1,10 +1,13 @@
-import { useState } from "react"
+import { useState } from "react";
+import socket from "../socket";
 
 export default function SendResponse(props) {
     const [userResponse, setUserResponse] = useState('');
 
     function verifyResponse() {
-        if(userResponse === props.correctResponse) {
+        socket.emit('answer', userResponse.toLowerCase());
+
+        if(userResponse.toLowerCase() === props.correctResponse.toLowerCase()) {
             props.state(true);
         } else {
             props.state(false);
