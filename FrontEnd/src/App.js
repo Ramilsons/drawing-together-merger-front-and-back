@@ -42,9 +42,9 @@ function App() {
     }, [socket]);
 
     return (
-        <div className={`App min-h-[100vh] bg-gradient-to-r from-purple-200 to-purple-500 font-display`}>
+        <div className={`App min-h-[100vh] bg-gradient-to-r from-purple-200 to-[#8C52FF] font-display`}>
             <div className={`w-[90%] mx-auto pt-[60px]`}>
-                <HeaderInfos />
+                <HeaderInfos isMyTurn={isMyTurn} wordGenerated={wordGenerated} />
 
                 <p>{ isMyTurn ? 'Sua Vez' : 'Vez do Oponente'}</p>
 
