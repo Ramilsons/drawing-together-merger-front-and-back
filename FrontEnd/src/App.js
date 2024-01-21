@@ -42,7 +42,7 @@ function App() {
     }, [socket]);
 
     return (
-        <div className={`App min-h-[100vh] bg-gradient-to-r from-purple-200 to-purple-500`}>
+        <div className={`App min-h-[100vh] bg-gradient-to-r from-purple-200 to-purple-500 font-display`}>
             <div className={`w-[90%] mx-auto pt-[60px]`}>
                 <HeaderInfos />
 
