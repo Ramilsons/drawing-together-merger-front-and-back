@@ -22,10 +22,9 @@ io.sockets.on('connection', (socket) => {
 
     // Listening client data
     socket.on('myTurnFinished', () => { myTurnFinished(socket, io) });
-    socket.on('answer', (data) => { saveResponseOnHistoric(data, io) })
+    socket.on('answer', (data) => { saveResponseOnHistoric(data, io) });
+    socket.on('disconnect', () => { userDisconnected(socket, io) })
 });
-
-io.sockets.on('disconnect', () => { userDisconnected() })
 
 server.listen('9000', () => {
     console.log('Server is running 🔥')

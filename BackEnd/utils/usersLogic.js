@@ -1,6 +1,7 @@
 let words = require('./words');
 
 let usersConnected = 0;
+let isSendFirstTurn = false;
 let wordsHistoric = [];
 
 function userConnected(io, socket) {
@@ -10,9 +11,12 @@ function userConnected(io, socket) {
     verifyLimit(io, socket);
 }
 
-function userDisconnected() {
+function userDisconnected(io, socket) {
     console.log('User Disconnected');
-    usersConnected--;
+    if(usersConnected > 0) {
+        usersConnected--;
+        verifyLimit(io, socket);
+    }
 }
 
 
@@ -20,7 +24,8 @@ function verifyLimit(io, socket) {
     if(usersConnected >= 2) {
         // Sending data to client
         io.emit('userNumberChanged', { isPossibleInit: true, usersConnected: usersConnected });
-        socket.broadcast.emit('yourTurn');
+        if(isSendFirstTurn == false) {myTurnFinished(socket, io)};
+        isSendFirstTurn = true
     }else {
        // socket.broadcast.emit('userNumberChanged', { isPossibleInit: false, usersConnected: usersConnected });
 
@@ -30,6 +35,7 @@ function verifyLimit(io, socket) {
 }
 
 function myTurnFinished(socket, io) {
+    let timer = 60;
     let wordToDraw = '';
     let controller = false;
 
@@ -43,6 +49,13 @@ function myTurnFinished(socket, io) {
             wordToDraw = randomWord;
 
             io.emit('wordGenerated', wordToDraw);
+
+            setInterval(() => {
+                if(timer > 0) {
+                    timer = timer - 1;
+                    io.emit('timerController', timer);
+                }
+            }, 1000)
             controller = true;
         }
     }

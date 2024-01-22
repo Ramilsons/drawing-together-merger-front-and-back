@@ -15,6 +15,7 @@ function App() {
     const [isMyTurn, setIsMyTurn] = useState(false);
     const [wordGenerated, setWordGenerated] = useState('');
     const [isCorrectResponse, setIsCorrectResponse] = useState(false);
+    const [timer, setTimer] = useState(60);
 
     useEffect(() => {
         socket.connect();
@@ -25,7 +26,6 @@ function App() {
         });
     }, []);
 
-
     useEffect(() => {
         socket.on('yourTurn', () => {
             setIsMyTurn(true);
@@ -33,18 +33,24 @@ function App() {
             setTimeout(() => {
                 socket.emit('myTurnFinished');
                 setIsMyTurn(false);
-            }, 30000)
+            }, 60000)
         });
 
         socket.on('wordGenerated', (data) => {
             setWordGenerated(data);
         })
+
+        socket.on('timerController', (timerFromBackend) => {
+            setTimer(timerFromBackend);
+        })
     }, [socket]);
+
+
 
     return (
         <div className={`App min-h-[100vh] bg-gradient-to-r from-purple-200 to-[#8C52FF] font-display`}>
             <div className={`w-[90%] mx-auto pt-[60px]`}>
-                <HeaderInfos isMyTurn={isMyTurn} wordGenerated={wordGenerated} />
+                <HeaderInfos isMyTurn={isMyTurn} wordGenerated={wordGenerated} timer={timer} />
 
                 <p>{ isMyTurn ? 'Sua Vez' : 'Vez do Oponente'}</p>
 
@@ -52,7 +58,7 @@ function App() {
                 { !isMyTurn && wordGenerated.length > 0 ? <SendResponse correctResponse={wordGenerated} state={setIsCorrectResponse} /> : '' }
 
                 { !isMyTurn && isCorrectResponse ? <p>{'Parabéns! você acertou.'}</p> : ''}
-                <div className="relative">
+                <div className={`relative ${isMyTurn ? '' : 'pointer-events-none'}`}>
                     <div className={`border-[#fff] border-4 rotate-3 w-[750px]`}>
                         <div className={`rotate-[-3deg]`}>
                             <ReactP5Wrapper sketch={sketch} />
