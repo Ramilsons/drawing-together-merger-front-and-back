@@ -49,25 +49,28 @@ function App() {
 
     return (
         <div className={`App min-h-[100vh] bg-gradient-to-r from-purple-200 to-[#8C52FF] font-display`}>
-            <div className={`w-[90%] mx-auto pt-[60px]`}>
+            <div className={`w-[90%] mx-auto pt-[60px] max-w-[1200px]`}>
                 <HeaderInfos isMyTurn={isMyTurn} wordGenerated={wordGenerated} timer={timer} />
 
-                <p>{ isMyTurn ? 'Sua Vez' : 'Vez do Oponente'}</p>
+                <div className={'flex items-end justify-between'}>
+                    <div className={`relative ${isMyTurn ? '' : 'pointer-events-none'}`}>
+                        <div className={`border-[#fff] border-4 rotate-[-3deg] w-[750px]`}>
+                            <div className={`rotate-[3deg]`}>
+                                <ReactP5Wrapper sketch={sketch} />
+                            </div>
+                        </div>
+                        <img className="absolute bottom-[-50px] left-[-80px]" width="140px" height="140px" alt="Troféu" src={trophyImage} /> 
+                    </div>
 
-                <p>{ isMyTurn && wordGenerated.length > 0 ? wordGenerated : ''}</p>
-                { !isMyTurn && wordGenerated.length > 0 ? <SendResponse correctResponse={wordGenerated} state={setIsCorrectResponse} /> : '' }
-
-                { !isMyTurn && isCorrectResponse ? <p>{'Parabéns! você acertou.'}</p> : ''}
-                <div className={`relative ${isMyTurn ? '' : 'pointer-events-none'}`}>
-                    <div className={`border-[#fff] border-4 rotate-3 w-[750px]`}>
-                        <div className={`rotate-[-3deg]`}>
-                            <ReactP5Wrapper sketch={sketch} />
+                    <div className={`border-[#fff] border-4 rotate-3 w-[330px   ]`}>
+                        <div className={`rotate-[-3deg] bg-[#fff] h-[500px] w-[330px]`}>
+                            <div className={'py-5 px-4'}>
+                                <Historic correctResponse={wordGenerated} isMyTurn={isMyTurn} />
+                            </div>
+                            { !isMyTurn && wordGenerated.length > 0 ? <SendResponse correctResponse={wordGenerated} state={setIsCorrectResponse} /> : '' }
                         </div>
                     </div>
-                    <img className="absolute bottom-[-50px] left-[-80px]" width="140px" height="140px" alt="Troféu" src={trophyImage} /> 
                 </div>
-
-                <Historic correctResponse={wordGenerated} />
             </div>
         </div>
     );

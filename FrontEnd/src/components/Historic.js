@@ -13,6 +13,15 @@ export default function Historic(props) {
     }, [socket]);
 
     return (
-        allAnswers.map((value, index) => <p className={`${props.correctResponse.toLowerCase() === value.toLowerCase ? 'text-green-500' : 'text-red-500'}`}>{value}</p>)
+        allAnswers.map((value, index) => { 
+            return (
+                <p className={`${props.correctResponse.toLowerCase() == value.toLowerCase() ? 'text-green-500' : 'text-red-500'}`}>
+                    <span className={'text-gray-400 font-semibold mr-1'}>
+                        {props.isMyTurn ? `Oponente: ` : `Eu: `}
+                    </span>
+                    {value}
+                </p>
+            );
+        })
     )
 }
