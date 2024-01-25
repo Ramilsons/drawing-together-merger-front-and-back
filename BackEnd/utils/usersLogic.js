@@ -19,7 +19,6 @@ function userDisconnected(io, socket) {
     }
 }
 
-
 function verifyLimit(io, socket) {
     if(usersConnected >= 2) {
         // Sending data to client
@@ -69,5 +68,13 @@ function saveResponseOnHistoric(data, io) {
     io.emit('newResponseOnHistoric', wordsHistoric);
 }
 
+function managerTimeBreak(socket, io) {
+    io.emit('break');
 
-module.exports = {userConnected, userDisconnected, myTurnFinished, saveResponseOnHistoric};
+    setTimeout(() => {
+        io.emit('finishBreak');
+        myTurnFinished(socket, io);
+    }, 10000);
+}
+
+module.exports = {userConnected, userDisconnected, myTurnFinished, saveResponseOnHistoric, managerTimeBreak};

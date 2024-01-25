@@ -4,11 +4,12 @@ function sketch(p) {
         p.background('#fff');
     }
       
+    /* Its happen err
     p.mouseDragged = function() {
         p.noStroke();
         p.fill(0);
         p.ellipse(p.mouseX, p.mouseY, 15, 15);
-    }
+    }*/
 }
 
 export default sketch;

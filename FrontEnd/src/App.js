@@ -16,6 +16,7 @@ function App() {
     const [isMyTurn, setIsMyTurn] = useState(false);
     const [wordGenerated, setWordGenerated] = useState('');
     const [isCorrectResponse, setIsCorrectResponse] = useState(false);
+    const [isBreakTime, setIsBreakTime] = useState(false);
     const [timer, setTimer] = useState(60);
 
     useEffect(() => {
@@ -44,12 +45,21 @@ function App() {
         socket.on('timerController', (timerFromBackend) => {
             setTimer(timerFromBackend);
         })
+
+        socket.on('break', () => {
+            setIsBreakTime(true);
+        })
+
+        socket.on('finishBreak', () => {
+            setIsBreakTime(false);
+        })
     }, [socket]);
 
 
 
     return (
-        <div className={`App min-h-[100vh] bg-gradient-to-r from-purple-200 to-[#8C52FF] font-display`}>
+        <div className={`App min-h-[100vh] bg-gradient-to-r from-purple-200 to-[#8C52FF] font-display relative`}>
+            <div className={`absolute top-0 left-0 bg-gray-600 w-[100vw] h-[100vh] ${isBreakTime ? 'opacity-85 z-20' : 'opacity-0'}`}></div>
             <div className={`w-[90%] mx-auto pt-[60px] max-w-[1200px]`}>
                 <HeaderInfos isMyTurn={isMyTurn} wordGenerated={wordGenerated} timer={timer} />
 

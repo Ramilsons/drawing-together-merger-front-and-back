@@ -14,6 +14,12 @@ export default function Historic(props) {
 
     return (
         allAnswers.map((value, index) => { 
+            if(props.correctResponse.toLowerCase() == value.toLowerCase()) {
+                setTimeout(() => {
+                    setAllAnswers([]);
+                }, 4000);
+            }
+
             return (
                 <p className={`${props.correctResponse.toLowerCase() == value.toLowerCase() ? 'text-green-500' : 'text-red-500'}`}>
                     <span className={'text-gray-400 font-semibold mr-1'}>
