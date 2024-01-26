@@ -24,10 +24,7 @@ export default function SendResponse(props) {
     }
 
     function handleKeyDown(e) {
-        console.log(e);
-        console.log(e.key);
         if(e.key === "Enter") {
-            console.log(true);
             verifyResponse();
         }
     }

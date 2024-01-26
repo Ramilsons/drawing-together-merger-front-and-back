@@ -20,7 +20,7 @@ function userDisconnected(io, socket) {
 }
 
 function verifyLimit(io, socket) {
-    if(usersConnected >= 2) {
+    if(usersConnected == 2) {
         // Sending data to client
         io.emit('userNumberChanged', { isPossibleInit: true, usersConnected: usersConnected });
         if(isSendFirstTurn == false) {myTurnFinished(socket, io)};
@@ -32,6 +32,8 @@ function verifyLimit(io, socket) {
        io.emit('userNumberChanged', { isPossibleInit: false, usersConnected: usersConnected });
     }
 }
+
+let intervalController;
 
 function myTurnFinished(socket, io) {
     let timer = 60;
@@ -49,7 +51,7 @@ function myTurnFinished(socket, io) {
 
             io.emit('wordGenerated', wordToDraw);
 
-            setInterval(() => {
+            intervalController = setInterval(() => {
                 if(timer > 0) {
                     timer = timer - 1;
                     io.emit('timerController', timer);
@@ -73,6 +75,7 @@ function managerTimeBreak(socket, io) {
 
     setTimeout(() => {
         io.emit('finishBreak');
+        clearInterval(intervalController);
         myTurnFinished(socket, io);
     }, 10000);
 }
