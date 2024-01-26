@@ -29,13 +29,10 @@ function App() {
     }, []);
 
     useEffect(() => {
+        // when my drawing turn initialize
         socket.on('yourTurn', () => {
+            console.log('meu turno');
             setIsMyTurn(true);
-
-            setTimeout(() => {
-                socket.emit('myTurnFinished');
-                setIsMyTurn(false);
-            }, 60000)
         });
 
         socket.on('wordGenerated', (data) => {
@@ -46,12 +43,19 @@ function App() {
             setTimer(timerFromBackend);
         })
 
+        // when break time initialize 
         socket.on('break', () => {
             setIsBreakTime(true);
         })
 
+        // when break time finished
         socket.on('finishBreak', () => {
             setIsBreakTime(false);
+        })
+
+        // when my drawing turn finished
+        socket.on('finishDrawingTurn', () => {
+            setIsMyTurn(false);
         })
     }, [socket]);
 
