@@ -3,7 +3,7 @@ const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 const cors = require("cors");
-const { userConnected, userDisconnected, myTurnFinished, saveResponseOnHistoric, managerTimeBreak } = require('./utils/usersLogic');
+const { userConnected, userDisconnected, myTurnDrawFinished, saveResponseOnHistoric, managerTimeBreak } = require('./utils/usersLogic');
 
 const app = express();
 app.use(cors());
@@ -21,7 +21,7 @@ io.sockets.on('connection', (socket) => {
     userConnected(io, socket);
 
     // Listening client data
-    socket.on('myTurnFinished', () => { myTurnFinished(socket, io) });
+    socket.on('myTurnDrawFinished', () => { myTurnDrawFinished(socket, io) });
     socket.on('answer', (data) => { saveResponseOnHistoric(data, io) });
     socket.on('disconnect', () => { userDisconnected(socket, io) });
     socket.on('timeBreak', () => { managerTimeBreak(socket, io) });
