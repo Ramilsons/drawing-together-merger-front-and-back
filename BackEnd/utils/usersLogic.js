@@ -128,4 +128,8 @@ function managerTimeBreak(socket, io) {
     }, 10000);
 }
 
-module.exports = {userConnected, userDisconnected, myTurnDrawFinished, saveResponseOnHistoric, managerTimeBreak};
+function clearHistoricResponse() {
+    wordsHistoric = [];
+}
+
+module.exports = {userConnected, userDisconnected, myTurnDrawFinished, saveResponseOnHistoric, managerTimeBreak, clearHistoricResponse};

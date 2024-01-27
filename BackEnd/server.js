@@ -3,7 +3,7 @@ const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 const cors = require("cors");
-const { userConnected, userDisconnected, myTurnDrawFinished, saveResponseOnHistoric, managerTimeBreak } = require('./utils/usersLogic');
+const { userConnected, userDisconnected, myTurnDrawFinished, saveResponseOnHistoric, managerTimeBreak, clearHistoricResponse } = require('./utils/usersLogic');
 
 const app = express();
 app.use(cors());
@@ -25,6 +25,7 @@ io.sockets.on('connection', (socket) => {
     socket.on('answer', (data) => { saveResponseOnHistoric(data, io) });
     socket.on('disconnect', () => { userDisconnected(socket, io) });
     socket.on('timeBreak', () => { managerTimeBreak(socket, io) });
+    socket.on('clearAllHistoricResponse', () => { clearHistoricResponse() });
 });
 
 server.listen('9000', () => {

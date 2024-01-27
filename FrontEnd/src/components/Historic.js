@@ -17,6 +17,8 @@ export default function Historic(props) {
             if(props.correctResponse.toLowerCase() == value.toLowerCase()) {
                 setTimeout(() => {
                     setAllAnswers([]);
+
+                    socket.emit('clearAllHistoricResponse');
                 }, 4000);
             }
 
