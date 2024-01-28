@@ -24,7 +24,7 @@ io.sockets.on('connection', (socket) => {
     socket.on('myTurnDrawFinished', () => { myTurnDrawFinished(socket, io) });
     socket.on('answer', (data) => { saveResponseOnHistoric(data, io) });
     socket.on('disconnect', () => { userDisconnected(socket, io) });
-    socket.on('timeBreak', () => { managerTimeBreak(socket, io) });
+    socket.on('timeBreak', () => { managerTimeBreak(socket, io, true) });
     socket.on('clearAllHistoricResponse', () => { clearHistoricResponse() });
 });
 

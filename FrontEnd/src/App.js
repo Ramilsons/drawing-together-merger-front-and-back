@@ -31,7 +31,6 @@ function App() {
     useEffect(() => {
         // when my drawing turn initialize
         socket.on('yourTurn', () => {
-            console.log('meu turno');
             setIsMyTurn(true);
         });
 
