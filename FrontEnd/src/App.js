@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { ReactP5Wrapper } from "react-p5-wrapper";
 
 import socket from "./socket";
-import sketch from "./sketch";
+import { sketch } from "./sketch";
 
 import HeaderInfos from "./components/HeaderInfos";
 import SendResponse from "./components/SendResponse";
@@ -18,6 +18,7 @@ function App() {
     const [isCorrectResponse, setIsCorrectResponse] = useState(false);
     const [isBreakTime, setIsBreakTime] = useState(false);
     const [timer, setTimer] = useState(60);
+    const [coordsMouseMoved, setCoordsMoved] = useState(false);
 
     useEffect(() => {
         socket.connect();
@@ -56,6 +57,15 @@ function App() {
         socket.on('finishDrawingTurn', () => {
             setIsMyTurn(false);
         })
+
+        socket.on('opponentMouseMoved', (mouseCoords) => {
+            setCoordsMoved({
+                x: mouseCoords.x,
+                y: mouseCoords.y
+            })
+        })
+
+        console.log(sketch);
     }, [socket]);
 
 
@@ -70,7 +80,7 @@ function App() {
                     <div className={`relative`}>
                         <div className={`border-[#fff] border-4 rotate-[-3deg] w-[750px]`}>
                             <div className={`rotate-[3deg] ${isMyTurn ? '' : 'pointer-events-none cursor-not-allowed'}`}>
-                                <ReactP5Wrapper sketch={sketch} />
+                                <ReactP5Wrapper sketch={sketch} coords={coordsMouseMoved} />
                             </div>
                         </div>
                         <img className="absolute bottom-[-50px] left-[-80px]" width="140px" height="140px" alt="Troféu" src={trophyImage} /> 

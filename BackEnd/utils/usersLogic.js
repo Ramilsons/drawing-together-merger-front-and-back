@@ -117,4 +117,10 @@ function initTimerAndGenerateRandomWord(socket, io, isRivalDrawnTurnFinished) {
     }
 }
 
-module.exports = {userConnected, userDisconnected, myTurnDrawFinished, saveResponseOnHistoric, managerTimeBreak, clearHistoricResponse};
+function managerMouseMovement(socket, io, mouseCoords) {
+    console.log("managerMouseMovement", mouseCoords);
+
+    socket.broadcast.emit('opponentMouseMoved', mouseCoords);
+}   
+
+module.exports = {userConnected, userDisconnected, myTurnDrawFinished, saveResponseOnHistoric, managerTimeBreak, clearHistoricResponse, managerMouseMovement};
