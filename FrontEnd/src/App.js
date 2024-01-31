@@ -80,7 +80,7 @@ function App() {
                     <div className={`relative`}>
                         <div className={`border-[#fff] border-4 rotate-[-3deg] w-[750px]`}>
                             <div className={`rotate-[3deg] ${isMyTurn ? '' : 'pointer-events-none cursor-not-allowed'}`}>
-                                <ReactP5Wrapper sketch={sketch} coords={coordsMouseMoved} />
+                                <ReactP5Wrapper sketch={sketch} coords={coordsMouseMoved} isBreakTime={isBreakTime} isMyTurn={isMyTurn} />
                             </div>
                         </div>
                         <img className="absolute bottom-[-50px] left-[-80px]" width="140px" height="140px" alt="Troféu" src={trophyImage} /> 

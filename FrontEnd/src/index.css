@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input[type='color'] {
+    overflow: hidden;
+    height: 35px;
+    width: 35px;
+    pointer-events: all;
+    position: absolute;
+    right: 0px;
+    top: 10px;
+}
