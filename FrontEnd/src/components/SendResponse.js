@@ -1,19 +1,22 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+
+import { GlobalData } from "../App";
 import socket from "../socket";
 
 import sendIcon from './../images/send-icon.png'
 
-export default function SendResponse(props) {
+export default function SendResponse() {
     const [userResponse, setUserResponse] = useState('');
+    const { wordGenerated, setIsCorrectResponse } = useContext(GlobalData);
 
     function verifyResponse() {
         socket.emit('answer', userResponse.toLowerCase());
 
-        if(userResponse.toLowerCase() === props.correctResponse.toLowerCase()) {
-            props.state(true);
+        if(userResponse.toLowerCase() === wordGenerated.toLowerCase()) {
+            setIsCorrectResponse(true);
             socket.emit('timeBreak');
         } else {
-            props.state(false);
+            setIsCorrectResponse(false);
         }
 
         setUserResponse('');

@@ -26,7 +26,7 @@ io.sockets.on('connection', (socket) => {
     socket.on('disconnect', () => { userDisconnected(socket, io) });
     socket.on('timeBreak', () => { managerTimeBreak(socket, io, true) });
     socket.on('clearAllHistoricResponse', () => { clearHistoricResponse() });
-    socket.on('mouseMoved', (mouseCoords) => { console.log("on mouseMoved", mouseCoords); managerMouseMovement(socket, io, mouseCoords) });
+    socket.on('mouseMoved', (mouseCoords) => { managerMouseMovement(socket, io, mouseCoords) });
 });
 
 server.listen('9000', () => {

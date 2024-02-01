@@ -11,3 +11,9 @@ input[type='color'] {
     right: 0px;
     top: 10px;
 }
+
+@layer components {
+    .borderOutsideEffect {
+        @apply border-[#fff] border-4;
+    }
+}

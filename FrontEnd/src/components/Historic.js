@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
-import socket from "../socket";
+import { useEffect, useState, useContext } from "react";
 
-export default function Historic(props) {
+import socket from "../socket";
+import { GlobalData } from "../App";
+
+export default function Historic() {
     const [allAnswers, setAllAnswers] = useState([]);
+    const {isMyTurn, wordGenerated} = useContext(GlobalData);
 
     useEffect(() => {
         socket.connect();
@@ -14,7 +17,7 @@ export default function Historic(props) {
 
     return (
         allAnswers.map((value, index) => { 
-            if(props.correctResponse.toLowerCase() == value.toLowerCase()) {
+            if(wordGenerated.toLowerCase() == value.toLowerCase()) {
                 setTimeout(() => {
                     setAllAnswers([]);
 
@@ -23,9 +26,9 @@ export default function Historic(props) {
             }
 
             return (
-                <p className={`${props.correctResponse.toLowerCase() == value.toLowerCase() ? 'text-green-500' : 'text-red-500'}`}>
+                <p className={`${wordGenerated.toLowerCase() == value.toLowerCase() ? 'text-green-500' : 'text-red-500'}`}>
                     <span className={'text-gray-400 font-semibold mr-1'}>
-                        {props.isMyTurn ? `Oponente: ` : `Eu: `}
+                        {isMyTurn ? `Oponente: ` : `Eu: `}
                     </span>
                     {value}
                 </p>

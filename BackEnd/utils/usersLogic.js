@@ -118,8 +118,6 @@ function initTimerAndGenerateRandomWord(socket, io, isRivalDrawnTurnFinished) {
 }
 
 function managerMouseMovement(socket, io, mouseCoords) {
-    console.log("managerMouseMovement", mouseCoords);
-
     socket.broadcast.emit('opponentMouseMoved', mouseCoords);
 }   
 

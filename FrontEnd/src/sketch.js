@@ -23,7 +23,6 @@ function sketch(p) {
 
     p.updateWithProps = function(newProps){
         if(newProps.coords){
-            console.log(newProps)
             p.noStroke();
             p.fill(0);
             p.ellipse(newProps.coords.x, newProps.coords.y, 15, 15);
