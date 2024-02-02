@@ -68,7 +68,7 @@ function App() {
             <TimeBreakOverlay isBreakTime={isBreakTime} />
             
             <main className={`w-[90%] mx-auto pt-[60px] max-w-[1200px]`}>
-                <GlobalData.Provider value={{ isMyTurn, wordGenerated, timer, setIsCorrectResponse, coordsMouseMoved }}>
+                <GlobalData.Provider value={{ isMyTurn, wordGenerated, timer, setIsCorrectResponse, coordsMouseMoved, isBreakTime }}>
                     <HeaderInfos />
 
                     <DrawSpaceAndHistoricContainer />

@@ -27,6 +27,10 @@ function sketch(p) {
             p.fill(0);
             p.ellipse(newProps.coords.x, newProps.coords.y, 15, 15);
         }
+
+        if(newProps.isBreakTime) {
+            p.background('#fff');
+        }
     }
 }
 
