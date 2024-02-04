@@ -65,7 +65,7 @@ function App() {
 
     return (
         <div className={`App min-h-[100vh] bg-gradient-to-r from-purple-200 to-[#8C52FF] font-display relative`} id="background">
-            <TimeBreakOverlay isBreakTime={isBreakTime} />
+            <TimeBreakOverlay isBreakTime={isBreakTime} isMyTurn={isMyTurn} />
             
             <main className={`w-[90%] mx-auto pt-[60px] max-w-[1200px]`}>
                 <GlobalData.Provider value={{ isMyTurn, wordGenerated, timer, setIsCorrectResponse, coordsMouseMoved, isBreakTime }}>
