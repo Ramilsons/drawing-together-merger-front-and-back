@@ -4,7 +4,6 @@ function sketch(p) {
     p.setup = function() {
         p.createCanvas(750, 530);
         p.background('#fff');
-        p.createColorPicker();
     }
       
     /* Its happen err */

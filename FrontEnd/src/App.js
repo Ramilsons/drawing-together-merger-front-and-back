@@ -5,6 +5,7 @@ import socket from "./socket";
 import HeaderInfos from "./components/HeaderInfos";
 import TimeBreakOverlay from "./components/TimeBreakOverlay";
 import DrawSpaceAndHistoricContainer from "./components/DrawSpaceAndHistoricContainer";
+import ConfettiEffect from "./components/ConfettiEffect";
 
 export const GlobalData = createContext(null);
 
@@ -16,6 +17,7 @@ function App() {
     const [isBreakTime, setIsBreakTime] = useState(false);
     const [timer, setTimer] = useState(60);
     const [coordsMouseMoved, setCoordsMoved] = useState(false);
+    const [confettiController, setShowConfettiController] = useState(false);
 
     useEffect(() => {
         socket.connect();
@@ -55,6 +57,14 @@ function App() {
             setIsMyTurn(false);
         })
 
+        socket.on('showConfetti', () => {
+            setShowConfettiController(true);
+
+            setTimeout(() => {
+                setShowConfettiController(false);
+            }, 10000);
+        });
+
         socket.on('opponentMouseMoved', (mouseCoords) => {
             setCoordsMoved({
                 x: mouseCoords.x,
@@ -64,16 +74,19 @@ function App() {
     }, [socket]);
 
     return (
-        <div className={`App min-h-[100vh] bg-gradient-to-r from-purple-200 to-[#8C52FF] font-display relative`} id="background">
+        <div className={`App min-h-[100vh] bg-[#8C52FF]`} id="background">
             <TimeBreakOverlay isBreakTime={isBreakTime} isMyTurn={isMyTurn} />
             
             <main className={`w-[90%] mx-auto pt-[60px] max-w-[1200px]`}>
-                <GlobalData.Provider value={{ isMyTurn, wordGenerated, timer, setIsCorrectResponse, coordsMouseMoved, isBreakTime }}>
+                <GlobalData.Provider value={{ isMyTurn, wordGenerated, timer, setIsCorrectResponse, coordsMouseMoved, isBreakTime, confettiController }}>
                     <HeaderInfos />
 
                     <DrawSpaceAndHistoricContainer />
                 </GlobalData.Provider>
             </main>
+
+            
+            { confettiController ? <ConfettiEffect /> : '' }
         </div>
     );
 }

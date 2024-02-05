@@ -3,7 +3,7 @@ const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 const cors = require("cors");
-const { userConnected, userDisconnected, myTurnDrawFinished, saveResponseOnHistoric, managerTimeBreak, clearHistoricResponse, managerMouseMovement } = require('./utils/usersLogic');
+const { userConnected, userDisconnected, myTurnDrawFinished, saveResponseOnHistoric, managerTimeBreak, clearHistoricResponse, managerMouseMovement, triggerConfetti } = require('./utils/usersLogic');
 
 const app = express();
 app.use(cors());
@@ -27,6 +27,7 @@ io.sockets.on('connection', (socket) => {
     socket.on('timeBreak', () => { managerTimeBreak(socket, io, true) });
     socket.on('clearAllHistoricResponse', () => { clearHistoricResponse() });
     socket.on('mouseMoved', (mouseCoords) => { managerMouseMovement(socket, io, mouseCoords) });
+    socket.on('triggerConfetti', () => triggerConfetti(socket, io));
 });
 
 server.listen('9000', () => {

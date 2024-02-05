@@ -121,4 +121,8 @@ function managerMouseMovement(socket, io, mouseCoords) {
     socket.broadcast.emit('opponentMouseMoved', mouseCoords);
 }   
 
-module.exports = {userConnected, userDisconnected, myTurnDrawFinished, saveResponseOnHistoric, managerTimeBreak, clearHistoricResponse, managerMouseMovement};
+function triggerConfetti(socket, io) {
+    io.emit('showConfetti');
+}
+
+module.exports = {userConnected, userDisconnected, myTurnDrawFinished, saveResponseOnHistoric, managerTimeBreak, clearHistoricResponse, managerMouseMovement, triggerConfetti};
