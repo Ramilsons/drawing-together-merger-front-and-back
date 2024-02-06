@@ -1,8 +1,8 @@
 import Confetti from 'react-confetti';
 
 export default function ConfettiEffect() {
-    const width = window.screen.availWidth - 200;
-    const height = window.screen.availHeight - 100;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
 
     return (
         <Confetti width={width} height={height} />    

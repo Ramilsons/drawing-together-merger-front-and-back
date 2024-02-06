@@ -12,7 +12,7 @@ export default function DrawWrapper() {
 
     return (
         <>
-            <div className={`borderOutsideEffect rotate-[-3deg] w-[750px]`}>
+            <div className={`borderOutsideEffect rotate-[-3deg] w-[530px] xl:w-[750px]`}>
                 <div className={`rotate-[3deg]`}>
                     <ReactP5Wrapper sketch={sketch} coords={coordsMouseMoved} isMyTurn={isMyTurn} isBreakTime={isBreakTime} />
                 </div>

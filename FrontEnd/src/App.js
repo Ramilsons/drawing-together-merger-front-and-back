@@ -77,7 +77,7 @@ function App() {
         <div className={`App min-h-[100vh] bg-[#8C52FF]`} id="background">
             <TimeBreakOverlay isBreakTime={isBreakTime} isMyTurn={isMyTurn} />
             
-            <main className={`w-[90%] mx-auto pt-[60px] max-w-[1200px]`}>
+            <main className={`w-[90%] lg:w-[85%] xl:w-[80%] mx-auto pt-[60px] max-w-[1200px]`}>
                 <GlobalData.Provider value={{ isMyTurn, wordGenerated, timer, setIsCorrectResponse, coordsMouseMoved, isBreakTime, confettiController }}>
                     <HeaderInfos />
 
