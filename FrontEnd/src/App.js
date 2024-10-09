@@ -62,7 +62,7 @@ function App() {
 
             setTimeout(() => {
                 setShowConfettiController(false);
-            }, 9000);
+            }, 10000);
         });
 
         socket.on('opponentMouseMoved', (mouseCoords) => {
